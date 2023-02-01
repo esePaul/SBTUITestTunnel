@@ -5,6 +5,10 @@ options:
   groupSortPosition: top
   postGenCommand: "pod install"
 
+packages:
+  SBTUITestTunnel:
+    path: ../
+
 fileGroups:
   - SBTUITestTunnel_Example.entitlements
 
@@ -31,6 +35,30 @@ targets:
         - SBTUITestTunnel_Tests
       coverageTargets:
         - SBTUITestTunnel_Example
+  
+  SBTUITestTunnel_Example_SwiftUI:
+    type: application
+    platform: iOS
+    deploymentTarget: "14.0"
+    settings:
+      base:
+        INFOPLIST_FILE: "SBTUITestTunnel_Example_SwiftUI/Info.plist"
+        CODE_SIGN_ENTITLEMENTS: "SBTUITestTunnel_Example.entitlements"
+    sources:
+      - path: SBTUITestTunnel_Example_SwiftUI
+        name: "SBTUITestTunnel_Example_SwiftUI"
+    dependencies:
+      - sdk: UIKit.framework
+      - sdk: Foundation.framework
+      - sdk: CoreGraphics.framework
+      - package: SBTUITestTunnel
+        product: SBTUITestTunnelServer
+    scheme:
+      gatherCoverageData: true
+      testTargets:
+        - SBTUITestTunnel_SwiftUI_Tests
+      coverageTargets:
+        - SBTUITestTunnel_Example_SwiftUI
 
   SBTUITestTunnel_Tests:
     type: bundle.ui-testing
@@ -46,6 +74,25 @@ targets:
     scheme:
       testTargets:
         - SBTUITestTunnel_Tests
+
+  SBTUITestTunnel_SwiftUI_Tests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "14.0"
+    settings:
+      base:
+        INFOPLIST_FILE: "SBTUITestTunnel_Tests/Info.plist"
+    sources:
+      - SBTUITestTunnel_Tests
+    dependencies:
+      - target: SBTUITestTunnel_Example_SwiftUI
+      - package: SBTUITestTunnel
+        product: SBTUITestTunnelClient
+      - package: SBTUITestTunnel
+        product: SBTUITestTunnelServer
+    scheme:
+      testTargets:
+        - SBTUITestTunnel_SwiftUI_Tests
 
   SBTUITestTunnel_TestsNoSwizzling:
     type: bundle.ui-testing
