@@ -12,39 +12,72 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink("hello") {
-                    Text("hello")
+                Group {
+                    NavigationLink("hello") {
+                        Text("hello")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
                 }
-                NavigationLink("hallo") {
-                    Text("hallo")
-                }
-                NavigationLink("hallo") {
-                    Text("hallo")
-                }
-                NavigationLink("hallo") {
-                    Text("hallo")
-                }
-                NavigationLink("hallo") {
-                    Text("hallo")
-                }
-                NavigationLink("hallo") {
-                    Text("hallo")
-                }
-                NavigationLink("hallo") {
-                    Text("hallo")
-                }
-                NavigationLink("hallo") {
-                    Text("hallo")
-                }
-                NavigationLink("hallo") {
-                    Text("hallo")
-                }
-                NavigationLink("hallo") {
-                    Text("hallo")
+                Group {
+                    NavigationLink("hello") {
+                        Text("hello")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
+                    NavigationLink("hallo") {
+                        Text("hallo")
+                    }
                 }
             }
-
-            .navigationTitle("Test")
+            .navigationTitle("SBTUITestTunnel Example")
         }
     }
 }
