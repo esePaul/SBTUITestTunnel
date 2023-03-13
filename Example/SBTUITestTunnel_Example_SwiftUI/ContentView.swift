@@ -1,83 +1,72 @@
+// ContentView.swift
 //
-//  ContentView.swift
-//  SBTUITestTunnel_Example_SwiftUI
+// Copyright (C) 2023 Subito.it S.r.l (www.subito.it)
 //
-//  Created by Marco Pagliari on 01/02/23.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 import SwiftUI
 
 struct ContentView: View {
 
+    let testManager = TestManager()
+
+    @State private var readyToNavigate : Bool = false
+
     var body: some View {
-        NavigationView {
-            List {
-                Group {
-                    NavigationLink("hello") {
-                        Text("hello")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                }
-                Group {
-                    NavigationLink("hello") {
-                        Text("hello")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
-                    NavigationLink("hallo") {
-                        Text("hallo")
-                    }
+        NavigationStack {
+            List(testManager.testList, id: \.name) { test in
+                switch test {
+                case let networkTest as NetworkTest:
+                    NavigationLink(value: networkTest) {
+                        Text(networkTest.name)
+                    }.accessibilityIdentifier(networkTest.name)
+                default:
+                    EmptyView()
                 }
             }
+            .accessibilityIdentifier("example_list")
             .navigationTitle("SBTUITestTunnel Example")
+            .navigationDestination(for: NetworkTest.self) { networkTest in
+                NetworkResultView(test: networkTest)
+            }
+            .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
+struct NetworkResultView: View {
+    let test: NetworkTest
+
+    @State private var isLoading : Bool = true
+    @State private var result : String = ""
+
+    var body: some View {
+        Group {
+            if isLoading {
+                ProgressView().accessibilityIdentifier("progress")
+            } else {
+                ScrollView {
+                    Text(result)
+                        .accessibilityIdentifier("result")
+                        .padding(8)
+                        .font(.footnote)
+                }
+            }
+        }.onAppear {
+            Task {
+                result = try await test.execute()
+                isLoading = false
+            }
         }
     }
 }

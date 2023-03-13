@@ -39,7 +39,7 @@ targets:
   SBTUITestTunnel_Example_SwiftUI:
     type: application
     platform: iOS
-    deploymentTarget: "14.0"
+    deploymentTarget: "16.0"
     settings:
       base:
         INFOPLIST_FILE: "SBTUITestTunnel_Example_SwiftUI/Info.plist"
